@@ -46,7 +46,7 @@ public class SQLHelp {
      * @return 总记录数
      * @throws java.sql.SQLException sql查询错误
      */
-    public static int getCount(
+    public static long getCount(
                                final MappedStatement mappedStatement, final Transaction transaction, final Object parameterObject,
                                final BoundSql boundSql, Dialect dialect) throws SQLException {
         final String count_sql = dialect.getCountSQL();
@@ -59,9 +59,9 @@ public class SQLHelp {
         handler.setParameters(countStmt);
 
         ResultSet rs = countStmt.executeQuery();
-        int count = 0;
+        long count = 0;
         if (rs.next()) {
-            count = rs.getInt(1);
+            count = rs.getLong(1);
         }
         logger.debug("Total count: {}", count);
         return count;

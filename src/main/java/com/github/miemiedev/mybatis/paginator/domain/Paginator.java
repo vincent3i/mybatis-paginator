@@ -25,9 +25,9 @@ public class Paginator implements Serializable {
     /**
      * 总记录数
      */
-    private int totalCount;
+    private long totalCount;
 
-    public Paginator(int page, int limit, int totalCount) {
+    public Paginator(int page, int limit, long totalCount) {
         super();
         this.limit = limit;
         this.totalCount = totalCount;
@@ -50,7 +50,7 @@ public class Paginator implements Serializable {
      *
      * @return 总项数
      */
-    public int getTotalCount() {
+    public long getTotalCount() {
         return totalCount;
     }
 
@@ -127,7 +127,7 @@ public class Paginator implements Serializable {
     /**
      * 结束行，可以用于oracle分页使用 (1-based)。
      */
-    public int getEndRow() {
+    public long getEndRow() {
         return page > 0 ? Math.min(limit * page, getTotalCount()) : 0;
     }
 
@@ -145,15 +145,15 @@ public class Paginator implements Serializable {
      *
      * @return
      */
-    public int getTotalPages() {
+    public long getTotalPages() {
         if (totalCount <= 0) {
-            return 0;
+            return 0L;
         }
         if (limit <= 0) {
-            return 0;
+            return 0L;
         }
 
-        int count = totalCount / limit;
+        long count = totalCount / limit;
         if (totalCount % limit > 0) {
             count++;
         }
@@ -183,7 +183,7 @@ public class Paginator implements Serializable {
         return generateLinkPageNumbers(getPage(), (int) getTotalPages(), slidersCount);
     }
 
-    private static int computeLastPageNumber(int totalItems, int pageSize) {
+    private static int computeLastPageNumber(long totalItems, int pageSize) {
         if (pageSize <= 0) return 1;
         int result = (int) (totalItems % pageSize == 0 ?
                 totalItems / pageSize
@@ -193,7 +193,7 @@ public class Paginator implements Serializable {
         return result;
     }
 
-    private static int computePageNumber(int page, int pageSize, int totalItems) {
+    private static int computePageNumber(int page, int pageSize, long totalItems) {
         if (page <= 1) {
             return 1;
         }
